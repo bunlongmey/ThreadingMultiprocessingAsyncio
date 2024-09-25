@@ -6,15 +6,16 @@ import generate_numbers
 def main():
     # Step 1: Generate numbers file
     print("Generating numbers.txt file...")
-    generate_numbers.generate_numbers_file("numbers.txt", 10000, 100000, 1000000)
-    
+    generate_numbers.generate_numbers("numbers.txt", 10000)
+
+
     # Step 2: Read numbers from file
     with open("numbers.txt", "r") as f:
         numbers = [int(line.strip()) for line in f.readlines()]
 
     # Step 3: Run multiprocessing task to find primes
     print("Running multiprocessing task...")
-    primes = multiprocessing_task.find_primes_in_range(numbers, chunk_size=len(numbers)//multiprocessing.cpu_count())
+    primes = multiprocessing_task.multiprocessing_task(numbers)
     print(f"Prime numbers found: {primes}")
 
     # Step 4: Run threading task to simulate I/O
